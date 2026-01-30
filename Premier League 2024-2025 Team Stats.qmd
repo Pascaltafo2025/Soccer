@@ -1,0 +1,14 @@
+---
+title: "Premier league Stas 2024-2025"
+author: "Pascal Hermann Kouogang Tafo"
+format: html
+editor: visual
+---
+
+# APPROACH
+
+## Comparing expeting goals attempts and team ranking
+
+I will begin by creating a table object of the Premier League statistics data from the 2024-2025 season that i will pull down the csv file from a public repo in my github using a function in the **gt package** . Then i will will be to focus on the top 5 teams and conduct an exploratory data analysis to identify a possible **correlation** between the expected goals attempts (**xG: a metric of scoring opportunity quality**) of these 5 teams and their final position at the end of the season.
+
+**source**: https://www.kaggle.com/datasets/sattvikyadav/premier-league-2024-2025-team-statistics?resource=download
