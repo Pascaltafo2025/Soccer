@@ -1,0 +1,109 @@
+---
+title: "Premier league Stas 2024-2025"
+author: "Pascal Hermann Kouogang Tafo"
+format: html
+editor: visual
+---
+
+# APPROACH
+
+## Comparing expected goals attempts and final record team goals scored and ranking
+
+I will begin by creating a table object of the Premier League statistics data from the 2024-2025 season that i will pull down the csv file from a public repo in my github using a function in the **gt package** . Then i will will be to focus on the top 5 teams and conduct an exploratory data analysis to identify a possible **correlation** between the expected goals attempts (**Xg: a metric of scoring opportunity quality**) of these 5 teams and their final position at the end of the season.
+
+**source**: https://www.kaggle.com/datasets/sattvikyadav/premier-league-2024-2025-team-statistics?resource=download.
+
+# INTRODUCTION
+
+Goals are the most important part of soccer, that's why coaches are doing their best efforts to improve their team's scoring probability. In that regard, a parameter called expected goal has been prominent lately. 
+
+**Expected Goals (xG)** is a statistical metric used to measure the quality of a goal-scoring opportunity. It assigns a probability to every shot taken in a match, based on how likely that shot is to result in a goal.
+
+
+
+## Install and Loading packages
+
+
+```{r Loading-package}
+
+install.packages("gt")
+library(tidyverse)
+library(gt)
+
+```
+
+## Open Dataset
+
+I will read the data table that combined the final statistics of the English Premier League soccer season 2024-2025 using the raw data from my github account
+
+
+```{r Read data}
+
+EPL_results <- read_csv ("https://raw.githubusercontent.com/Pascaltafo2025/Soccer/refs/heads/main/premier_league_stats_2024-25.csv")
+
+view(EPL_results)
+
+EPL_results
+```
+
+## Creating Subset data
+
+For my analysis, i will focus on the top 5 teams from last year season, therefore i will the first 6 rows and the columns including the ranking, club's name, expected goal percent and goal scored.
+
+1) I will first create the subset using the base R code by the elements that from the dataset.
+
+```{r Data_extraction}
+
+EPL_Top5 <- EPL_results[1:5,c(1,2,7,12)]
+
+EPL_Top5
+
+```
+
+2) I will now use ChatGPT to help me create the subset data using tidyverse functions.
+
+```{r subset-data}
+
+
+EPL_Top5 <- EPL_results %>%
+  slice_head(n = 5) %>%
+  select(Rk, Squad, GF, xG)
+EPL_Top5
+
+```
+
+
+## Correlation between expected goals(xG) Vs Goals Scored (GF)
+
+I will use the help of ChatGPT to generate correlation between teams' expected goals(xG) Vs Goals Scored (GF).
+
+```{r  xG-VS-GF}
+
+library(dplyr)
+
+EPL_Top5 %>%
+  summarise(
+    correlation_GF_xG = cor(GF, xG, use = "complete.obs")
+  )
+
+
+```
+
+
+##Interpretation
+
+The correlation coefficient is 0.85 so close to 1.That means there is strong relationship between the expected goals metric and the actual goals scored by these 5 teams. 
+Although, the relationship is strong we can see that teams like Liverpool, Manchester City and Newcastle Utd had almost 4 goals than their expected goals attemps whereas Arsenal and Chelsea had less goals than expected goals attempts.
+
+# CONCLUSION
+
+This simple analysis shows that if Arsenal and Chelsea would like to do better this season, they should have focused on getting more skilled strikers because they are the ones with the objective to score goals.It is interesting because these 2 clubs are among the ones with the highest spending in strikers at the beginning of this season 2025-2026.
+
+Source: ChatGPT 
+https://chatgpt.com/share/69802d14-f3d8-8004-b4b8-b8d85879ba16
+
+
+
+
+
+
